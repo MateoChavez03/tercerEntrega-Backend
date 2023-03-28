@@ -4,13 +4,14 @@ import mongoose from "mongoose";
 
 import __dirname from "./utils.js";
 import config from "./config/config.js";
+import initializePassport from "./config/passportConfig.js"
 
 import viewsRouter from "./routes/viewsRouter.js";
 import sessionsRouter from "./routes/sessionsRouter.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080
-const conection = mongoose.connect(config.mongo.URL)
+const connection = mongoose.connect(config.mongo.URL)
 
 // View Engine
 app.engine("handlebars", handlebars.engine());
@@ -20,6 +21,8 @@ app.set('view engine','handlebars');
 // Middlewares
 app.use(express.static(`${__dirname}/public`))
 app.use(express.json());
+
+initializePassport()
 
 // Routers
 app.use('/', viewsRouter);
