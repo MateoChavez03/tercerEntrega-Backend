@@ -1,14 +1,16 @@
 import express from "express";
-import handlebars from "express-handlebars"
+import handlebars from "express-handlebars";
+import mongoose from "mongoose";
 
 import __dirname from "./utils.js";
+import config from "./config/config.js";
 
-import viewsRouter from "./routes/viewsRouter.js"
-import sessionsRouter from "./routes/sessionsRouter.js"
+import viewsRouter from "./routes/viewsRouter.js";
+import sessionsRouter from "./routes/sessionsRouter.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080
-
+const conection = mongoose.connect(config.mongo.URL)
 
 // View Engine
 app.engine("handlebars", handlebars.engine());
