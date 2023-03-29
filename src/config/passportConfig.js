@@ -9,9 +9,9 @@ const LocalStrategy = local.Strategy;
 const initializePassport = () =>{
     passport.use('login', new LocalStrategy({usernameField:'email'}, async (email, password, done) => {
         const user = await userModel.findOne({email});
-        !user && done(null, false, {message: 'User does not exist'})
+        if (!user) return done(null, false, {message: 'User does not exist'})
         const isValidPassword = await validatePassword(password, user.password);
-        !isValidPassword && done(null, false, {message: 'Wrong password'});
+        if (!isValidPassword) return done(null, false, {message: 'Wrong password'});
         return done(null, user);
     }))
 }

@@ -4,8 +4,8 @@ form.addEventListener('submit',async evt=>{
     evt.preventDefault();
     const data = new FormData(form);
     const obj = {};
-    data.forEach((value,key)=>obj[key]=value)
-    const response = await fetch('/api/sessions/login',{
+    data.forEach((value,key) => obj[key]=value)
+    const response = await fetch('/api/sessions/login', {
         method: 'POST',
         body: JSON.stringify(obj),
         headers: {
@@ -16,6 +16,6 @@ form.addEventListener('submit',async evt=>{
     if(result.status === "success") {
         window.location.replace('/home');
     } else {
-        alert(result.error);
+        alert("Failed to log in");
     }
 })

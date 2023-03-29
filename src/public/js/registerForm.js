@@ -1,6 +1,6 @@
 const form = document.getElementById('registerForm');
 
-form.addEventListener('submit',async evt=>{
+form.addEventListener('submit', async evt=>{
     evt.preventDefault();
     const data = new FormData(form);
     const response = await fetch('/api/sessions/register',{
@@ -9,8 +9,8 @@ form.addEventListener('submit',async evt=>{
     })
     const result = await response.json();
     if(result.status === "success") {
-        window.location.replace('/home');
+        window.location.replace('/login');
     } else {
-        alert(result.error);
+        alert("Failed to register");;
     }
 })
