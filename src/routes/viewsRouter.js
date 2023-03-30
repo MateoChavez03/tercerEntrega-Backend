@@ -1,30 +1,29 @@
 import { Router } from "express";
 
-import jwt from 'jsonwebtoken';
-import config from '../config/config.js';
+import { executePolicies } from "../middlewares/Auth.js";
+import productsModel from "../dao/mongo/products.js"
 
 const router = Router();
 
-router.use('/register', (req, res) => {
+router.get('/register', (req, res) => {
     res.render('register')
 })
 
-router.use('/login', (req, res) => {
+router.get('/login', (req, res) => {
     res.render('login')
 })
 
-router.use('/home', (req, res) => {
-    const token = req.cookies[config.jwt.COOKIE];
-    const user = jwt.verify(token, config.jwt.SECRET);
-    res.render('home', {user})
+router.get('/home', executePolicies(["AUTHENTICATED"]), async (req, res) => {
+    const products = await productsModel.find().lean();
+    res.render('home', {user: req.user, products})
 })
 
-router.use('/cart', (req, res) => {
-    res.render('cart')
+router.get('/cart', executePolicies(["AUTHENTICATED"]), (req, res) => {
+    res.render('cart', {user: req.user, cart})
 })
 
-router.use('/profile', (req, res) => {
-    res.render('profile')
+router.get('/profile', executePolicies(["AUTHENTICATED"]), (req, res) => {
+    res.render('profile', {user: req.user})
 })
 
 export default router

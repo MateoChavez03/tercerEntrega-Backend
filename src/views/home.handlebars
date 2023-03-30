@@ -9,3 +9,30 @@
         <img src={{user.avatar}} alt="avatar">
     </div>
 </header>
+<main>
+    {{#if products.length}}
+        <h1>PRODUCTS</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>FILTER</th>
+                    <th>IMG</th>
+                    <th>ADD</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.filter}}</td>
+                        <td><img src="{{this.img}}" alt="{{this.name}} banner"></td>
+                        <td><button {{addToCart this.name}}>hola</button></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{else}}
+        <h1>PRODUCTS LIST EMPTY</h1>
+    {{/if}}
+</main>

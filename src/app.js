@@ -1,11 +1,12 @@
 import express from "express";
-import handlebars from "express-handlebars";
+import { create } from "express-handlebars";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
 import __dirname from "./utils.js";
 import config from "./config/config.js";
 import initializePassport from "./config/passportConfig.js"
+import productsModel from "./dao/mongo/products.js";
 
 import viewsRouter from "./routes/viewsRouter.js";
 import sessionsRouter from "./routes/sessionsRouter.js";
@@ -15,7 +16,26 @@ const PORT = process.env.PORT || 8080
 const connection = mongoose.connect(config.mongo.URL)
 
 // View Engine
-app.engine("handlebars", handlebars.engine());
+
+const hbs = create({
+    helpers: {
+        async addToCart(name) {
+            console.log(name);
+            const product = await productsModel.findOne({name});
+            console.log(product);
+            let cart
+            if (cart) {
+                cart.push(product)
+                console.log(cart);
+            } else {
+                let cart = []
+                cart.push(product)
+            }
+        }
+    }
+})
+
+app.engine("handlebars", hbs.engine);
 app.set('views',`${__dirname}/views`);
 app.set('view engine','handlebars');
 
