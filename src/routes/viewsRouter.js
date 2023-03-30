@@ -19,8 +19,12 @@ router.use('/home', (req, res) => {
     res.render('home', {user})
 })
 
-router.use("/loginFail", (req, res) => {
-    res.render('register')
+router.use('/cart', (req, res) => {
+    res.render('cart')
+})
+
+router.use('/profile', (req, res) => {
+    res.render('profile')
 })
 
 export default router

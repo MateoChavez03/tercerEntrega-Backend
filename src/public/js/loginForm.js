@@ -16,6 +16,6 @@ form.addEventListener('submit',async evt=>{
     if(result.status === "success") {
         window.location.replace('/home');
     } else {
-        alert("Failed to log in");
+        alert(JSON.stringify(result));
     }
 })

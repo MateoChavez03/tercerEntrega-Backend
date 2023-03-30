@@ -7,7 +7,7 @@ export default {
         SECRET: process.env.JWT_SECRET || "srjkhlfghjeb"
     },
     nodemailer: {
-
+        PWD: process.env.GMAIL_PWD || "ijqizswsitdzokwk"
     },
     server: {
         PORT: process.env.PORT || 8080

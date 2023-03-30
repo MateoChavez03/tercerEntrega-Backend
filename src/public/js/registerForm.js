@@ -11,6 +11,6 @@ form.addEventListener('submit', async evt=>{
     if(result.status === "success") {
         window.location.replace('/login');
     } else {
-        alert("Failed to register");;
+        alert(JSON.stringify(result))
     }
 })
