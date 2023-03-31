@@ -13,24 +13,17 @@ import sessionsRouter from "./routes/sessionsRouter.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080
-const connection = mongoose.connect(config.mongo.URL)
+const connection = mongoose.connect(config.mongo.URL);
+const cart = []
 
 // View Engine
 
 const hbs = create({
     helpers: {
-        async addToCart(name) {
-            console.log(name);
-            const product = await productsModel.findOne({name});
-            console.log(product);
-            let cart
-            if (cart) {
-                cart.push(product)
-                console.log(cart);
-            } else {
-                let cart = []
-                cart.push(product)
-            }
+        async addToCart(id) {
+            const product = await productsModel.findOne({_id: id});
+            cart.push(product)
+            console.log(cart);
         }
     }
 })
